@@ -71,7 +71,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     if(layer_state_cmp(state, _QWERTY)) { // if default
         rgblight_mode(RGBLIGHT_MODE_TWINKLE + 5);
     }
-    if(layer_state_cmp(state, _DEFAULT)) { // if fn
+    if(layer_state_cmp(state, _FLOAT)) { // if fn
         rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 5);
     }
     return state;
