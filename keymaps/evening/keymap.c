@@ -63,11 +63,12 @@ void dynamic_macro_record_end_user(int8_t direction) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // set lighting effect based on what layer i'm in
     if(recording) {
-        rgblight_mode(RGBLIGHT_MODE_RAINBOW_MOOD);
+        rgblight_mode(RGBLIGHT_MODE_BREATHING+3);
+        rgblight_sethsv(HSV_RED);
         return state;
     }
+    rgblight_sethsv(0xEA, 0xFF, 0xFF); // reset to colors
     if(layer_state_cmp(state, _QWERTY)) { // if default
         rgblight_mode(RGBLIGHT_MODE_TWINKLE + 5);
     }
@@ -78,16 +79,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 bool led_update_user(led_t led_state) {
-    if(led_state.caps_lock) { //if capslock
-        rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 4);
+    if(led_state.caps_lock && !recording) {
+        rgblight_mode(RGBLIGHT_MODE_TWINKLE + 2); // static color
+        rgblight_sethsv(HSV_GOLDENROD);
     }
     return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-void matrix_init_user(void) {
-    rgblight_mode(RGBLIGHT_MODE_TWINKLE + 5);
+    return true;
 }
